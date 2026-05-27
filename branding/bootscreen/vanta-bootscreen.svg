@@ -1,0 +1,18 @@
+<svg width="680" height="420" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg">
+  <rect width="680" height="420" fill="#000000"/>
+  <line x1="0" y1="0" x2="680" y2="420" stroke="#00FFFF" stroke-width="0.2" opacity="0.05"/>
+  <line x1="680" y1="0" x2="0" y2="420" stroke="#00FFFF" stroke-width="0.2" opacity="0.05"/>
+  <line x1="40" y1="60" x2="640" y2="60" stroke="#00FFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="40" y1="360" x2="640" y2="360" stroke="#00FFFF" stroke-width="0.5" opacity="0.4"/>
+  <line x1="40" y1="60" x2="40" y2="80" stroke="#00FFFF" stroke-width="1" opacity="0.6"/>
+  <line x1="640" y1="60" x2="640" y2="80" stroke="#00FFFF" stroke-width="1" opacity="0.6"/>
+  <line x1="40" y1="360" x2="40" y2="340" stroke="#00FFFF" stroke-width="1" opacity="0.6"/>
+  <line x1="640" y1="360" x2="640" y2="340" stroke="#00FFFF" stroke-width="1" opacity="0.6"/>
+  <text x="340" y="185" text-anchor="middle" font-family="monospace" font-size="72" font-weight="700" fill="#00FFFF" opacity="0.95" letter-spacing="20">VANTA</text>
+  <text x="340" y="220" text-anchor="middle" font-family="monospace" font-size="14" fill="#00FFFF" opacity="0.5" letter-spacing="8">O P E R A T I N G   S Y S T E M</text>
+  <line x1="240" y1="240" x2="440" y2="240" stroke="#00FFFF" stroke-width="0.5" opacity="0.3"/>
+  <text x="340" y="265" text-anchor="middle" font-family="monospace" font-size="12" fill="#00FFFF" opacity="0.4" letter-spacing="3">v0.1.0 — by GA</text>
+  <rect x="240" y="300" width="200" height="2" fill="#00FFFF" opacity="0.15" rx="1"/>
+  <rect x="240" y="300" width="80" height="2" fill="#00FFFF" opacity="0.8" rx="1"/>
+  <text x="340" y="325" text-anchor="middle" font-family="monospace" font-size="10" fill="#00FFFF" opacity="0.3" letter-spacing="2">INITIALIZING SPECTR ENGINE...</text>
+</svg>

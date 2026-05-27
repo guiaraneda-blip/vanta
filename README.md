@@ -3,6 +3,8 @@
 
 > "Lo ve todo. No lo ve nadie."
 
+![Vanta OS Boot Screen](branding/bootscreen/vanta-bootscreen.svg)
+
 ---
 
 ## What is Vanta?
@@ -37,6 +39,18 @@ Built by a cybersecurity student, for cybersecurity students.
 
 ---
 
+## Demo
+
+```bash
+# Boot demo
+python3 scripts/boot_demo.py
+
+# SPECTR live demo
+bash scripts/spectr_demo.sh
+```
+
+---
+
 ## Status
 
 > Early development. Building the foundation.
@@ -46,7 +60,8 @@ Built by a cybersecurity student, for cybersecurity students.
 ## Author
 
 by GA — Cybersecurity student @ Duoc UC, Chile  
-GitHub: [guiaraneda-blip](https://github.com/guiaraneda-blip)
+GitHub: [guiaraneda-blip](https://github.com/guiaraneda-blip)  
+SPECTR: [github.com/guiaraneda-blip/spectr](https://github.com/guiaraneda-blip/spectr)
 
 ---
 

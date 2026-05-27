@@ -2,12 +2,12 @@ import time
 import sys
 import os
 
-CYAN = "\033[96m"
-DIM = "\033[2m"
+CYAN  = "\033[96m"
+DIM   = "\033[2m"
 RESET = "\033[0m"
-BOLD = "\033[1m"
+BOLD  = "\033[1m"
 WHITE = "\033[97m"
-GRAY = "\033[90m"
+GRAY  = "\033[90m"
 
 def print_slow(text, delay=0.03, color=CYAN):
     for char in text:
@@ -35,38 +35,120 @@ def progress_bar(duration=2.5):
         time.sleep(interval)
     sys.stdout.write(RESET + "\n")
 
-def menu():
-    os.system('clear')
+def menu_exploitation():
     print()
-    print(CYAN + BOLD + "  VANTA OS — Main Menu" + RESET)
+    print(CYAN + BOLD + "  Exploitation Tools" + RESET)
     print(CYAN + "  " + "─" * 40 + RESET)
+    print(f"  {CYAN}[1]{RESET}  {WHITE}Metasploit Framework{RESET}")
+    print(f"  {CYAN}[2]{RESET}  {WHITE}SQLMap{RESET}")
+    print(f"  {CYAN}[3]{RESET}  {WHITE}Dalfox (XSS){RESET}")
+    print(f"  {CYAN}[4]{RESET}  {WHITE}Nuclei{RESET}")
     print()
-    print(f"  {CYAN}[1]{RESET}  {WHITE}Launch SPECTR{RESET}")
-    print(f"  {CYAN}[2]{RESET}  {WHITE}Network Recon{RESET}")
-    print(f"  {CYAN}[3]{RESET}  {WHITE}Exploitation Tools{RESET}")
-    print(f"  {CYAN}[4]{RESET}  {WHITE}Post-Exploitation{RESET}")
-    print(f"  {CYAN}[5]{RESET}  {WHITE}Reports{RESET}")
-    print(f"  {CYAN}[q]{RESET}  {GRAY}Exit{RESET}")
+    sub = input(f"  {CYAN}vanta{RESET} » ").strip()
+    if sub == "1":
+        os.system("msfconsole")
+    elif sub == "2":
+        url = input(f"  {CYAN}URL objetivo{RESET} » ").strip()
+        os.system(f"sqlmap -u {url} --batch")
+    elif sub == "3":
+        url = input(f"  {CYAN}URL objetivo{RESET} » ").strip()
+        os.system(f"dalfox url {url}")
+    elif sub == "4":
+        target = input(f"  {CYAN}Target{RESET} » ").strip()
+        os.system(f"nuclei -u {target} -severity critical,high,medium")
     print()
-    print(CYAN + "  " + "─" * 40 + RESET)
-    print()
+    input(f"  {GRAY}Enter para volver al menú...{RESET}")
 
+def menu_postexploit():
+    print()
+    print(CYAN + BOLD + "  Post-Exploitation Tools" + RESET)
+    print(CYAN + "  " + "─" * 40 + RESET)
+    print(f"  {CYAN}[1]{RESET}  {WHITE}LinPEAS{RESET}")
+    print(f"  {CYAN}[2]{RESET}  {WHITE}Chisel (tunneling){RESET}")
+    print(f"  {CYAN}[3]{RESET}  {WHITE}Ligolo-ng (pivoting){RESET}")
+    print()
+    sub = input(f"  {CYAN}vanta{RESET} » ").strip()
+    if sub == "1":
+        os.system("bash /opt/privesc/linpeas.sh")
+    elif sub == "2":
+        os.system("chisel --help")
+    elif sub == "3":
+        os.system("ligolo-ng --help 2>/dev/null || echo 'ligolo-ng no encontrado'")
+    print()
+    input(f"  {GRAY}Enter para volver al menú...{RESET}")
+
+def menu_reports():
+    print()
+    print(CYAN + BOLD + "  Reports" + RESET)
+    print(CYAN + "  " + "─" * 40 + RESET)
+    reports_dir = "/opt/vanta/reports"
+    if os.path.exists(reports_dir):
+        reports = sorted(os.listdir(reports_dir))
+        if reports:
+            for i, r in enumerate(reports, 1):
+                print(f"  {CYAN}[{i}]{RESET}  {WHITE}{r}{RESET}")
+        else:
+            print(f"  {GRAY}No hay reportes aún.{RESET}")
+    else:
+        print(f"  {GRAY}Directorio /opt/vanta/reports no encontrado.{RESET}")
+    print()
+    input(f"  {GRAY}Enter para volver...{RESET}")
+
+def menu():
     while True:
+        os.system('clear')
+        print()
+        print(CYAN + BOLD + "  VANTA OS — Main Menu" + RESET)
+        print(CYAN + "  " + "─" * 40 + RESET)
+        print()
+        print(f"  {CYAN}[1]{RESET}  {WHITE}Launch SPECTR{RESET}")
+        print(f"  {CYAN}[2]{RESET}  {WHITE}Network Recon{RESET}")
+        print(f"  {CYAN}[3]{RESET}  {WHITE}Exploitation Tools{RESET}")
+        print(f"  {CYAN}[4]{RESET}  {WHITE}Post-Exploitation{RESET}")
+        print(f"  {CYAN}[5]{RESET}  {WHITE}Reports{RESET}")
+        print(f"  {CYAN}[q]{RESET}  {GRAY}Exit{RESET}")
+        print()
+        print(CYAN + "  " + "─" * 40 + RESET)
+        print()
         choice = input(f"  {CYAN}vanta{RESET} » ").strip().lower()
+
         if choice == "1":
             print()
-            print_slow("  Launching SPECTR v1.1...", delay=0.04)
+            print_slow("  Launching SPECTR v1.2...", delay=0.04)
             time.sleep(0.5)
-            os.system("bash -c 'cd ~/spectr && source venv/bin/activate && python spectr.py --help'")
-            break
+            os.system("spectr --help")
+            print()
+            input(f"  {GRAY}Enter para volver al menú...{RESET}")
+
+        elif choice == "2":
+            print()
+            target = input(f"  {CYAN}Target (IP/dominio){RESET} » ").strip()
+            if target:
+                print_slow(f"  Launching vanta-recon against {target}...", delay=0.04)
+                time.sleep(0.5)
+                os.system(f"vanta-recon {target}")
+                print()
+                input(f"  {GRAY}Enter para volver al menú...{RESET}")
+
+        elif choice == "3":
+            menu_exploitation()
+
+        elif choice == "4":
+            menu_postexploit()
+
+        elif choice == "5":
+            menu_reports()
+
         elif choice == "q":
             print()
             print_slow("  Shutting down Vanta OS...", delay=0.04, color=GRAY)
             time.sleep(0.5)
             print()
             break
+
         else:
-            print(f"  {GRAY}Opción no disponible aún.{RESET}")
+            print(f"  {GRAY}Opción inválida.{RESET}")
+            time.sleep(1)
 
 def boot():
     os.system('clear')
@@ -86,19 +168,16 @@ def boot():
     print(CYAN + "  " + "─" * 50 + RESET)
     print()
     time.sleep(1)
-
     progress_bar(duration=2)
     print()
-
     ok("Loading kernel modules...")
     ok("Mounting filesystems...")
     ok("Starting network services...")
     ok("Loading security modules...")
     ok("Loading encryption layer...")
     fail("Checking for updates... skipped (offline mode)")
-    ok("Initializing SPECTR engine v1.1...")
+    ok("Initializing SPECTR engine v1.2...")
     ok("Loading Vanta environment...")
-
     time.sleep(0.5)
     print()
     print(CYAN + "  " + "─" * 50 + RESET)
@@ -108,7 +187,6 @@ def boot():
     print_slow("  Lo ve todo. No lo ve nadie.", delay=0.05, color=DIM+CYAN)
     print()
     time.sleep(1.5)
-
     menu()
 
 if __name__ == "__main__":

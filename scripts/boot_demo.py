@@ -57,7 +57,7 @@ def menu():
             print()
             print_slow("  Launching SPECTR v1.1...", delay=0.04)
             time.sleep(0.5)
-            os.system("python3 ~/spectr/spectr.py --help")
+            os.system("bash -c 'cd ~/spectr && source venv/bin/activate && python spectr.py --help'")
             break
         elif choice == "q":
             print()

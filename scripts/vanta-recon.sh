@@ -79,8 +79,9 @@ VULN_COUNT=$(wc -l < $OUTPUT_DIR/nuclei.txt 2>/dev/null || echo 0)
 echo -e "${GREEN}  [✓] $VULN_COUNT vulnerabilidades nuclei${RESET}"
 
 echo -e "\n${BOLD}[5/5] Directory Fuzzing${RESET}"
-ffuf -u http://$TARGET/FUZZ -w /usr/share/seclists/Discovery/Web-Content/common.txt \
-    -mc 200,301,302,403 -silent -o $OUTPUT_DIR/ffuf.json -of json 2>/dev/null
+WORDLIST="/usr/share/seclists/Discovery/Web-Content/common.txt"
+[ ! -f "$WORDLIST" ] && WORDLIST="/usr/share/dirb/wordlists/common.txt"
+ffuf -u http://$TARGET/FUZZ -w $WORDLIST -mc 200,301,302,403 -s -o $OUTPUT_DIR/ffuf.json -of json 2>/dev/null
 FUZZ_COUNT=$(cat $OUTPUT_DIR/ffuf.json 2>/dev/null | grep -c '"status"' || echo 0)
 echo -e "${GREEN}  [✓] $FUZZ_COUNT paths encontrados${RESET}"
 

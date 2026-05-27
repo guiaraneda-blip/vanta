@@ -76,6 +76,7 @@ done
 
 # Symlinks Go tools a /usr/local/bin
 ln -sf $GOPATH/bin/* /usr/local/bin/ 2>/dev/null
+chmod 755 $GOPATH $GOPATH/bin $GOPATH/bin/* 2>/dev/null
 ok "Go tools instaladas"
 
 # ── Python tools ─────────────────────────────────────────────

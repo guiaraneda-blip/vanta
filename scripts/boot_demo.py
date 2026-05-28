@@ -49,7 +49,11 @@ def menu_exploitation():
         os.system("msfconsole")
     elif sub == "2":
         url = input(f"  {CYAN}URL objetivo{RESET} » ").strip()
-        os.system(f"sqlmap -u {url} --batch")
+        cookie = input(f"  {CYAN}Cookie (ej: PHPSESSID=abc;security=low){RESET} » ").strip()
+        if cookie:
+            os.system(f"sqlmap -u '{url}' --cookie='{cookie}' --dbs --batch")
+        else:
+            os.system(f"sqlmap -u '{url}' --dbs --batch")
     elif sub == "3":
         url = input(f"  {CYAN}URL objetivo{RESET} » ").strip()
         os.system(f"dalfox url {url}")

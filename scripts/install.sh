@@ -64,7 +64,7 @@ GO_TOOLS=(
     "github.com/tomnomnom/gf@latest"
     "github.com/tomnomnom/getJS@latest"
     "github.com/lukasikic/subzy@latest"
-    "github.com/s0md3v/dalfox/v2@latest"
+    "github.com/hahwul/dalfox/v2@latest"
     "github.com/lc/gau/v2/cmd/gau@latest"
 )
 

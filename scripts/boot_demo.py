@@ -83,7 +83,11 @@ def menu_exploitation():
         print()
     elif sub == "3":
         url = input(f"  {CYAN}URL objetivo{RESET} » ").strip()
-        os.system(f"dalfox url {url}")
+        cookie = input(f"  {CYAN}Cookie (ej: PHPSESSID=abc;security=low){RESET} » ").strip()
+        if cookie:
+            os.system(f"dalfox url '{url}' --cookie '{cookie}'")
+        else:
+            os.system(f"dalfox url '{url}'")
     elif sub == "4":
         target = input(f"  {CYAN}Target{RESET} » ").strip()
         os.system(f"nuclei -u {target} -severity critical,high,medium")

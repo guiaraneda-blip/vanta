@@ -153,7 +153,7 @@ def menu():
             print()
             print_slow("  Activando Anonymity Mode...", delay=0.04)
             os.system("sudo systemctl start tor")
-            os.system("sudo macchanger -r eth0 2>/dev/null || sudo macchanger -r wlan0 2>/dev/null")
+            os.system("iface=$(ip -o link show | grep -v lo | awk -F': ' '{print $2}' | head -1 | tr -d ' '); sudo macchanger -r $iface 2>/dev/null")
             os.system("sudo /usr/sbin/ufw enable")
             print_slow("  [OK] Tor activo", delay=0.04)
             print_slow("  [OK] MAC spoofed", delay=0.04)

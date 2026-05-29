@@ -196,6 +196,22 @@ def menu():
             print_slow("  [1] Backup de reportes (GPG)", delay=0.04)
             print_slow("  [2] Ver snapshots Timeshift", delay=0.04)
             print()
+            sub = input(f"  {CYAN}backup » {RESET}").strip()
+            if sub == "1":
+                import datetime
+                ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                backup_file = f"/opt/vanta/reports/backup_{ts}.tar.gz.gpg"
+                print_slow("  [*] Comprimiendo reportes...", delay=0.03)
+                os.system(f"tar czf /tmp/vb_{ts}.tar.gz /opt/vanta/reports/ 2>/dev/null")
+                print_slow("  [*] Cifrando con GPG...", delay=0.03)
+                ret = os.system(f"gpg --symmetric --cipher-algo AES256 -o {backup_file} /tmp/vb_{ts}.tar.gz 2>/dev/null")
+                os.system(f"rm -f /tmp/vb_{ts}.tar.gz")
+                print_slow(f"  [OK] Backup: {backup_file}" if ret == 0 else "  [!!] Error GPG.", delay=0.03)
+            elif sub == "2":
+                os.system("timeshift --list 2>/dev/null || echo '  Sin snapshots.'")
+            else:
+                print_slow("  Opcion invalida.", delay=0.03)
+            print()
             input(f"  {GRAY}Enter para volver al menu...{RESET}")
 
         elif choice == "q":

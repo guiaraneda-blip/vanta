@@ -149,7 +149,21 @@ def menu():
         print()
         choice = input(f"  {CYAN}vanta{RESET} » ").strip().lower()
 
-        if choice == "1":
+        if choice == "0":
+            print()
+            print_slow("  Activando Anonymity Mode...", delay=0.04)
+            os.system("sudo systemctl start tor")
+            os.system("sudo macchanger -r eth0 2>/dev/null || sudo macchanger -r wlan0 2>/dev/null")
+            os.system("sudo ufw enable")
+            print_slow("  [OK] Tor activo", delay=0.04)
+            print_slow("  [OK] MAC spoofed", delay=0.04)
+            print_slow("  [OK] UFW habilitado", delay=0.04)
+            print_slow("  [OK] ProxyChains configurado", delay=0.04)
+            print_slow("  [!!] Mullvad VPN: instalar via install.sh", delay=0.04)
+            print()
+            input(f"  {GRAY}Enter para volver al menu...{RESET}")
+
+        elif choice == "1":
             print()
             print_slow("  Launching SPECTR v1.2...", delay=0.04)
             time.sleep(0.5)
@@ -175,6 +189,14 @@ def menu():
 
         elif choice == "5":
             menu_reports()
+
+        elif choice == "6":
+            print()
+            print_slow("  Backup & Recovery", delay=0.04)
+            print_slow("  [1] Backup de reportes (GPG)", delay=0.04)
+            print_slow("  [2] Ver snapshots Timeshift", delay=0.04)
+            print()
+            input(f"  {GRAY}Enter para volver al menu...{RESET}")
 
         elif choice == "q":
             print()

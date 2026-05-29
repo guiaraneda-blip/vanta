@@ -51,7 +51,7 @@ GO_TOOLS=(
     "github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest"
     "github.com/projectdiscovery/httpx/cmd/httpx@latest"
     "github.com/projectdiscovery/dnsx/cmd/dnsx@latest"
-    "github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest"
+    "github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest"
     "github.com/projectdiscovery/katana/cmd/katana@latest"
     "github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest"
     "github.com/projectdiscovery/notify/cmd/notify@latest"
@@ -209,6 +209,14 @@ ok "vanta-recon instalado"
 # ── Estructura de reportes ───────────────────────────────────
 mkdir -p /opt/vanta/reports
 ok "Directorio /opt/vanta/reports creado"
+
+# ── Mullvad VPN ──────────────────────────────────────────────
+title "Mullvad VPN"
+curl -fsSL https://repository.mullvad.net/deb/mullvad-keyring.asc | gpg --dearmor -o /usr/share/keyrings/mullvad-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/mullvad-keyring.gpg arch=amd64] https://repository.mullvad.net/deb/stable debian main" > /etc/apt/sources.list.d/mullvad.list
+apt update -y
+apt install -y mullvad-vpn
+ok "Mullvad VPN instalado"
 
 # ── Done ─────────────────────────────────────────────────────
 title "INSTALACIÓN COMPLETA"

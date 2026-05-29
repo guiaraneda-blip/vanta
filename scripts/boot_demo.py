@@ -154,7 +154,7 @@ def menu():
             print_slow("  Activando Anonymity Mode...", delay=0.04)
             os.system("sudo systemctl start tor")
             os.system("sudo macchanger -r eth0 2>/dev/null || sudo macchanger -r wlan0 2>/dev/null")
-            os.system("sudo ufw enable")
+            os.system("sudo /usr/sbin/ufw enable")
             print_slow("  [OK] Tor activo", delay=0.04)
             print_slow("  [OK] MAC spoofed", delay=0.04)
             print_slow("  [OK] UFW habilitado", delay=0.04)
